@@ -34,8 +34,12 @@ public class GarageController {
     }
 
     @PostMapping("/motorcycle")
-    public Motorcycle createMotorcycle(@RequestBody CreateMotorcycleRequest request) {
+    public Motorcycle createMotorcycle(@RequestBody CreateMotorcycleRequest request) throws Exception{
+        try{
         return garageService.createMotorcycle(request.getMake(),request.getModel(),request.getYear());
+        } catch(Exception ex){
+            throw ex;
+        }
     }
 
     @PutMapping("/motorcycle/{id}")
@@ -43,7 +47,11 @@ public class GarageController {
             @PathVariable("id") String id,
             @RequestBody UpdateMotorcycleRequest request
     ) throws Exception{
-        return garageService.updateMotorcycle(UUID.fromString(id), request.getMake(),request.getModel(),request.getYear(), request.isNeedFixing());
+        try {
+            return garageService.updateMotorcycle(UUID.fromString(id), request.getMake(), request.getModel(), request.getYear(), request.isNeedFixing());
+        }catch(Exception ex){
+            throw ex;
+        }
     }
 
     @DeleteMapping("/deletedmotorcycle/{id}")
@@ -51,7 +59,11 @@ public class GarageController {
             @PathVariable("id") String id,
             @RequestBody DeleteMotorcycleRequest request
     ) throws Exception{
-        return garageService.deleteMotorcycle(UUID.fromString(id));
+        try {
+            return garageService.deleteMotorcycle(UUID.fromString(id));
+        }catch (Exception ex){
+            throw ex;
+        }
     }
 
 }
