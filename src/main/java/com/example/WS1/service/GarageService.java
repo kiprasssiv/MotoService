@@ -1,10 +1,12 @@
 package com.example.WS1.service;
 
+import com.example.WS1.controller.exception.MotorcycleNotFoundException;
 import com.example.WS1.model.Motorcycle;
 import com.example.WS1.repository.MotorcycleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -17,7 +19,10 @@ public class GarageService {
     }
 
     public List<Motorcycle> getMotorcycles() {
-       return motorcycleRepository.findAll();
+        List<Motorcycle> motorcycles = motorcycleRepository.findAll();
+        if(motorcycles.isEmpty())
+            throw MotorcycleNotFoundException.create();
+        return motorcycles;
     }
 
     public Motorcycle getMotorcycle(UUID id) throws Exception {
