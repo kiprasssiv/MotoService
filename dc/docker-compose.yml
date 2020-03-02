@@ -1,0 +1,21 @@
+version: "3.4"
+ 
+ 
+services:
+ 
+  postgres:
+    restart: always
+    image: postgres:11.4
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=db
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes: 
+    - /var/lib/postgresql/data
+    ports:
+      - 5432:5432
