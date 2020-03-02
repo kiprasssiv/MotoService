@@ -45,4 +45,10 @@ public class GarageService {
         return motorcycle;
     }
 
+    public Motorcycle deleteMotorcycle(UUID id)throws Exception{
+        Motorcycle motorcycle = getMotorcycle(id);
+        motorcycleRepository.delete(motorcycle);
+        return motorcycle;
+    }
+
 }

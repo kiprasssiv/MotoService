@@ -1,6 +1,7 @@
 package com.example.WS1.controller;
 
 import com.example.WS1.controller.request.CreateMotorcycleRequest;
+import com.example.WS1.controller.request.DeleteMotorcycleRequest;
 import com.example.WS1.controller.request.UpdateMotorcycleRequest;
 import com.example.WS1.model.Motorcycle;
 import com.example.WS1.service.GarageService;
@@ -43,6 +44,14 @@ public class GarageController {
             @RequestBody UpdateMotorcycleRequest request
     ) throws Exception{
         return garageService.updateMotorcycle(UUID.fromString(id), request.getMake(),request.getModel(),request.getYear(), request.isNeedFixing());
+    }
+
+    @DeleteMapping("/deletedmotorcycle/{id}")
+    public Motorcycle deleteMotorcycleInfo(
+            @PathVariable("id") String id,
+            @RequestBody DeleteMotorcycleRequest request
+    ) throws Exception{
+        return garageService.deleteMotorcycle(UUID.fromString(id));
     }
 
 }
