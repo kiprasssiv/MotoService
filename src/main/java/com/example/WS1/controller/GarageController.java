@@ -56,8 +56,7 @@ public class GarageController {
 
     @DeleteMapping("/deletedmotorcycle/{id}")
     public Motorcycle deleteMotorcycleInfo(
-            @PathVariable("id") String id,
-            @RequestBody DeleteMotorcycleRequest request
+            @PathVariable("id") String id
     ) throws Exception{
         try {
             return garageService.deleteMotorcycle(UUID.fromString(id));
