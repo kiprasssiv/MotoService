@@ -17,16 +17,13 @@ services:
     ports:
       - 5432:5432
 
-  moto-service:
-    build:
-      context: ./
-      dockerfile: Dockerfile
+  moto-service :
+    image: zaliabulve/motoser:latest
     environment:
       - SPRING_PROFILES_ACTIVE=postgresql
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/db?currentSchema=garage
       - SPRING_FLYWAY_SCHEMAS=garage
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
-    command: java -jar ./app/moto-service.jar
     ports:
       - 80:80
