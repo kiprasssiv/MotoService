@@ -3,8 +3,12 @@ package com.example.WS1.service;
 import com.example.WS1.controller.exception.MotorcycleNotFoundException;
 import com.example.WS1.model.Motorcycle;
 import com.example.WS1.repository.MotorcycleRepository;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,8 +24,6 @@ public class GarageService {
 
     public List<Motorcycle> getMotorcycles() {
         List<Motorcycle> motorcycles = motorcycleRepository.findAll();
-        if(motorcycles.isEmpty())
-            throw MotorcycleNotFoundException.create();
         return motorcycles;
     }
 
@@ -34,26 +36,38 @@ public class GarageService {
         }
     }
 
-    public Motorcycle createMotorcycle(String make, String model, int year){
+    public ResponseEntity<Motorcycle> createMotorcycle(String make, String model, int year){
         Motorcycle motorcycle = new Motorcycle(make, model,year);
-        motorcycleRepository.save(motorcycle);
-        return motorcycle;
+        Motorcycle moto = motorcycleRepository.save(motorcycle);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("location","/motorcycles/" + moto.getId());
+        try{
+            return ResponseEntity.created(new URI("/motorcycles/"+moto.getId())).header(String.valueOf(responseHeaders)).body(motorcycle);
+        }catch(Exception e){
+            throw new RuntimeException("Failed creating");
+        }
     }
 
     public Motorcycle updateMotorcycle(UUID id, String make, String model, int year, boolean needFixing)throws Exception{
+        if(!motorcycleRepository.existsById(id)){
+            throw new MotorcycleNotFoundException();
+        }
         Motorcycle motorcycle = getMotorcycle(id);
         motorcycle.setMake(make);
         motorcycle.setModel(model);
         motorcycle.setYear(year);
         motorcycle.setNeedFixing(needFixing);
-        motorcycleRepository.save(motorcycle);
-        return motorcycle;
+        return motorcycleRepository.save(motorcycle);
+
     }
 
-    public Motorcycle deleteMotorcycle(UUID id)throws Exception{
+    public ResponseEntity<Motorcycle> deleteMotorcycle(UUID id) throws Exception {
+        if(!motorcycleRepository.existsById(id)){
+            throw new MotorcycleNotFoundException();
+        }
         Motorcycle motorcycle = getMotorcycle(id);
         motorcycleRepository.delete(motorcycle);
-        return motorcycle;
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

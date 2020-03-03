@@ -1,30 +1,14 @@
 package com.example.WS1.controller.exception;
 
 import com.example.WS1.model.Motorcycle;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.UUID;
-
+@ResponseStatus(value= HttpStatus.NOT_FOUND, reason = "Product not found")
 public class MotorcycleNotFoundException extends RuntimeException {
-    private String message;
-
-    public static MotorcycleNotFoundException create() {
-        return new MotorcycleNotFoundException("No motorcycles were found in the database.");
-    }
-
-    public static MotorcycleNotFoundException createWith(UUID id) {
-        return new MotorcycleNotFoundException("No motorcycle was found in the database with id [" + id + "].");
+    public MotorcycleNotFoundException(){
 
     }
 
-    private MotorcycleNotFoundException(String msg) {
-        this.message = msg;
-    }
-
-    @Override
-
-    public String getMessage() {
-
-        return this.message;
-
-    }
 }
