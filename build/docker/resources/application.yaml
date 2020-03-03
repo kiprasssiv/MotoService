@@ -1,0 +1,19 @@
+server.port: 80
+
+sql_schema: garage
+sql_database: db
+sql_host: 192.168.99.100
+sql_port: 5432
+sql_username: root
+sql_password: root
+
+
+spring:
+  application:
+    name: moto-service
+  datasource:
+    url: jdbc:postgresql://${sql_host}:${sql_port}/${sql_database}?currentSchema=${sql_schema}
+    username: ${sql_username}
+    password: ${sql_password}
+  flyway:
+    schemas: ${sql_schema}

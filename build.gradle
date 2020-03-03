@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.2.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'com.bmuschko.docker-java-application' version '6.1.4'
 	id 'java'
 }
 
@@ -30,6 +31,16 @@ dependencies {
 
 }
 
-test {
+/*test {
 	useJUnitPlatform()
 }
+
+docker {
+	javaApplication {
+		baseImage = 'dockerfile/java:openjdk-11-slim'
+		maintainer = 'Kipras Sivickas "sivickaskipras@gmail.com"'
+		ports = [8080]
+		images = ["kiprasssiv/MotoService:${version}"]
+		jvmArgs = ['-Xms256m', '-Xmx2048m']
+	}
+}*/

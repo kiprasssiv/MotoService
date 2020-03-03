@@ -1,0 +1,32 @@
+version: "3.4"
+services:
+  postgres:
+    restart: always
+    image: postgres:11.4
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - /var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+  moto-service:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_PROFILES_ACTIVE=postgresql
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/db?currentSchema=garage
+      - SPRING_FLYWAY_SCHEMAS=garage
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    command: java -jar ./app/moto-service.jar
+    ports:
+      - 80:80
