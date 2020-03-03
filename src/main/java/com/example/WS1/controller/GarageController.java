@@ -25,8 +25,9 @@ public class GarageController {
         this.garageService = garageService;
     }
 
-    @ApiOperation(code = 200, value = "Get all motorcycles")
+
     @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Motorcycle list"),
             @ApiResponse(code = 404, message = "Database empty")
     })
     @GetMapping("/motorcycles")
@@ -34,8 +35,8 @@ public class GarageController {
         return garageService.getMotorcycles();
     }
 
-    @ApiOperation(code = 200, value = "Get product's defect by it's Id")
     @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Motorcycle found"),
             @ApiResponse(code = 404, message = "Motorcycle not found")
     })
     @GetMapping("/motorcycles/{id}")
@@ -44,8 +45,9 @@ public class GarageController {
     }
 
 
-    @ApiOperation(code = 201, value = "Add a motorcycle")
+
     @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Motorcycle added"),
             @ApiResponse(code = 400, message = "Bad request body"),
             @ApiResponse(code = 404, message = "Not found")
     })
@@ -55,8 +57,8 @@ public class GarageController {
 
     }
 
-    @ApiOperation(code = 200, value = "Update a motorcycle")
     @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Update a motorcycle"),
             @ApiResponse(code = 400, message = "Bad request body"),
             @ApiResponse(code = 404, message = "Not found")
     })
@@ -72,8 +74,8 @@ public class GarageController {
         }
     }
 
-    @ApiOperation(code = 204, value = "Delete motorcycle by ID")
     @ApiResponses(value = {
+            @ApiResponse(code = 204,message = "Motorcycle deleted"),
             @ApiResponse(code = 404, message = "Not found")
     })
     @DeleteMapping("/deletedmotorcycle/{id}")
