@@ -22,6 +22,8 @@ services:
 
   moto-service :
     image: zaliabulve/motoser:latest
+    depends_on:
+      - postgres
     environment:
       - SPRING_PROFILES_ACTIVE=postgresql
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/db?currentSchema=garage
