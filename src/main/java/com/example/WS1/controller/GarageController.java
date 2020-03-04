@@ -49,7 +49,7 @@ public class GarageController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Motorcycle created"),
             @ApiResponse(code = 400, message = "Bad request body"),
-            @ApiResponse(code = 404, message = "Not found")
+            @ApiResponse(code = 404, message = "Motorcycle not created")
     })
     @PostMapping("/motorcycle")
     public ResponseEntity<Motorcycle> createMotorcycle(@RequestBody CreateMotorcycleRequest request) {
@@ -60,7 +60,7 @@ public class GarageController {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Update a motorcycle"),
             @ApiResponse(code = 400, message = "Bad request body"),
-            @ApiResponse(code = 404, message = "Not found")
+            @ApiResponse(code = 404, message = "Motorcycle not found")
     })
     @PutMapping("/motorcycle/{id}")
     public Motorcycle updateMotorcycleInfo(
