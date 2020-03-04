@@ -10,7 +10,7 @@ sql_password: root
 
 spring:
   application:
-    name: moto-service
+    name: motorcycle-service
   datasource:
     url: jdbc:postgresql://${sql_host}:${sql_port}/${sql_database}?currentSchema=${sql_schema}
     username: ${sql_username}

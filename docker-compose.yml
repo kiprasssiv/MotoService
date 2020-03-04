@@ -3,6 +3,7 @@ services:
   postgres:
     restart: always
     image: postgres:11.4
+    container_name: postgres
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
@@ -16,6 +17,8 @@ services:
       - /var/lib/postgresql/data
     ports:
       - 5432:5432
+    networks:
+      - mynet
 
   moto-service :
     image: zaliabulve/motoser:latest
@@ -25,5 +28,12 @@ services:
       - SPRING_FLYWAY_SCHEMAS=garage
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
+    command: java -jar ./app/moto-service.jar
     ports:
       - 80:80
+    networks:
+      - mynet
+
+
+networks:
+  mynet:
