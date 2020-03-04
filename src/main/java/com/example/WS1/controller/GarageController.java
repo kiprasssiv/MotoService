@@ -51,7 +51,7 @@ public class GarageController {
             @ApiResponse(code = 400, message = "Bad request body"),
             @ApiResponse(code = 404, message = "Motorcycle not created")
     })
-    @PostMapping("/motorcycle")
+    @PostMapping("/motorcycles")
     public ResponseEntity<Motorcycle> createMotorcycle(@RequestBody CreateMotorcycleRequest request) {
         return garageService.createMotorcycle(request.getMake(),request.getModel(),request.getYear());
 
@@ -62,7 +62,7 @@ public class GarageController {
             @ApiResponse(code = 400, message = "Bad request body"),
             @ApiResponse(code = 404, message = "Motorcycle not found")
     })
-    @PutMapping("/motorcycle/{id}")
+    @PutMapping("/motorcycles/{id}")
     public Motorcycle updateMotorcycleInfo(
             @PathVariable("id") String id,
             @RequestBody UpdateMotorcycleRequest request
@@ -78,7 +78,7 @@ public class GarageController {
             @ApiResponse(code = 204,message = "Motorcycle deleted"),
             @ApiResponse(code = 404, message = "Not found")
     })
-    @DeleteMapping("/deletedmotorcycle/{id}")
+    @DeleteMapping("/motorcycles/{id}")
     public ResponseEntity<Motorcycle> deleteMotorcycleInfo(
             @PathVariable("id") String id
     ) throws Exception{
