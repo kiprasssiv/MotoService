@@ -47,7 +47,7 @@ public class GarageController {
 
 
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "Motorcycle added"),
+            @ApiResponse(code = 200, message = "Motorcycle created"),
             @ApiResponse(code = 400, message = "Bad request body"),
             @ApiResponse(code = 404, message = "Not found")
     })
