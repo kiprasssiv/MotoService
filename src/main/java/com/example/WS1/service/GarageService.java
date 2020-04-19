@@ -53,6 +53,7 @@ public class GarageService {
             throw new MotorcycleNotFoundException();
         }
         Motorcycle motorcycle = getMotorcycle(id);
+        motorcycle.setId(id);
         motorcycle.setMake(make);
         motorcycle.setModel(model);
         motorcycle.setYear(year);

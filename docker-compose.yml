@@ -21,7 +21,7 @@ services:
       - mynet
 
   moto-service :
-    image: kiprasssiv/motoser:latest
+    image: zaliabulve/motoser:latest
     depends_on:
       - postgres
     environment:
@@ -37,6 +37,9 @@ services:
       - mynet
 
   defect-service:
-    image: kiprasssiv/defect-registry:latest
+    image: mila973/defect-registry:latest
     ports:
       - 5000:8090
+
+networks:
+  mynet:
