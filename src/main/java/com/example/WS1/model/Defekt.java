@@ -9,6 +9,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "defects")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Defekt {
     @Id

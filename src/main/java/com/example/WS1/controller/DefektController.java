@@ -3,7 +3,6 @@ package com.example.WS1.controller;
 import com.example.WS1.controller.request.CreateMotoDefektRequest;
 import com.example.WS1.controller.request.UpdateMotoDefektRequest;
 import com.example.WS1.model.Defekt;
-import com.example.WS1.model.Motorcycle;
 import com.example.WS1.service.DefectService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -73,7 +72,7 @@ public class DefektController {
             @ApiResponse(code = 404, message = "Not found")
     })
     @DeleteMapping("/deffects/{id}")
-    public ResponseEntity<Motorcycle> deleteMotoDefektInfo(
+    public ResponseEntity<Defekt> deleteMotoDefektInfo(
             @PathVariable("id") String id
     ) throws Exception{
         defectService.deleteDefekt(UUID.fromString(id));
