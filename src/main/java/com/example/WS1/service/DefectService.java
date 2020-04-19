@@ -1,7 +1,6 @@
 package com.example.WS1.service;
 
 import com.example.WS1.controller.exception.DefektNotFoundException;
-import com.example.WS1.controller.exception.MotorcycleNotFoundException;
 import com.example.WS1.model.Defekt;
 import com.example.WS1.repository.DefektRepository;
 import org.springframework.http.HttpHeaders;
@@ -64,7 +63,7 @@ public class DefectService {
     //Delete a finished to fix deffect
     public ResponseEntity<Defekt> deleteDefekt(UUID id) throws Exception {
         if(!defektRepository.existsById(id)){
-            throw new MotorcycleNotFoundException();
+            throw new DefektNotFoundException();
         }
         Defekt deff = getDefekt(id);
         defektRepository.delete(deff);

@@ -1,12 +1,9 @@
 package com.example.WS1.controller;
 
 import com.example.WS1.controller.request.CreateMotorcycleRequest;
-import com.example.WS1.controller.request.DeleteMotorcycleRequest;
 import com.example.WS1.controller.request.UpdateMotorcycleRequest;
 import com.example.WS1.model.Motorcycle;
 import com.example.WS1.service.GarageService;
-
-import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;

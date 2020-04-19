@@ -4,5 +4,5 @@ CREATE TABLE defects(
     service_id    int   NOT NULL,
     foreign key (moto_id)
             references motorcycles (id)
-            on delete cascade,
+            on delete cascade
 );

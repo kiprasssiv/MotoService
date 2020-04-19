@@ -26,7 +26,7 @@ public class DefektController {
             @ApiResponse(code = 200, message = "Motorcycle of deffects list"),
             @ApiResponse(code = 404, message = "Database empty")
     })
-    @GetMapping("/motorcycles/deffects")
+    @GetMapping("/deffects")
     public List<Defekt> getDefekts() {
         return defectService.getDefekts();
     }
@@ -35,7 +35,7 @@ public class DefektController {
             @ApiResponse(code = 200, message = "Motorcycle deffect found"),
             @ApiResponse(code = 404, message = "Motorcycle deffect not found")
     })
-    @GetMapping("/motorcycles/deffects/{id}")
+    @GetMapping("/deffects/{id}")
     public Defekt getDefekt(@PathVariable("id") String id) throws Exception {
         return defectService.getDefekt(UUID.fromString(id));
     }
@@ -45,7 +45,7 @@ public class DefektController {
             @ApiResponse(code = 400, message = "Bad request body"),
             @ApiResponse(code = 404, message = "Motorcycle deffect not created")
     })
-    @PostMapping("/motorcycles/deffects")
+    @PostMapping("/deffects")
     public ResponseEntity<Defekt> createDefekt(@RequestBody CreateMotoDefektRequest request) {
         return defectService.createDefekt(request.getMoto_id(),request.getService_id());
     }
@@ -56,7 +56,7 @@ public class DefektController {
             @ApiResponse(code = 404, message = "Motorcycle deffect not found")
     })
 
-    @PutMapping("/motorcycles/deffects/{id}")
+    @PutMapping("/deffects/{id}")
     public Defekt updateDeffectInfo(
             @PathVariable("id") String id,
             @RequestBody UpdateMotoDefektRequest request
@@ -72,7 +72,7 @@ public class DefektController {
             @ApiResponse(code = 204,message = "Motorcycle deffect deleted"),
             @ApiResponse(code = 404, message = "Not found")
     })
-    @DeleteMapping("/motorcycles/deffects/{id}")
+    @DeleteMapping("/deffects/{id}")
     public ResponseEntity<Motorcycle> deleteMotoDefektInfo(
             @PathVariable("id") String id
     ) throws Exception{
