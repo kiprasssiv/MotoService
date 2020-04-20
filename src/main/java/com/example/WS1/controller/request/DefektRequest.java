@@ -3,7 +3,6 @@ package com.example.WS1.controller.request;
 import java.util.UUID;
 
 public class DefektRequest {
-
     private UUID moto_id;
     private int service_id;
 

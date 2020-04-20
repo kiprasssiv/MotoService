@@ -10,5 +10,4 @@ public class Ws1Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Ws1Application.class, args);
 	}
-
 }

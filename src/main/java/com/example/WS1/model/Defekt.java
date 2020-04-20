@@ -1,6 +1,7 @@
 package com.example.WS1.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -17,18 +18,22 @@ public class Defekt {
     @Column(name = "id")
     @JsonProperty("id")
     private UUID id = UUID.randomUUID();
+
+    @JsonIgnore
     @Column(name = "moto_id")
-    @JsonProperty("moto_id")
-    private UUID moto_id;
+    public UUID moto_id;
+
     @Column(name = "service_id")
     @JsonProperty("service_id")
-    private int service_id;
+    public int service_id;
 
     public Defekt(UUID moto_id, int service_id){
+
         this.moto_id = moto_id;
         this.service_id = service_id;
     }
 
+    public Defekt() {}
 
     public UUID getId() {
         return id;

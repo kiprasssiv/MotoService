@@ -1,7 +1,9 @@
 package com.example.WS1.service;
 
 import com.example.WS1.controller.exception.DefektNotFoundException;
+import com.example.WS1.model.DefectEntity;
 import com.example.WS1.model.Defekt;
+import com.example.WS1.repository.DefectListRepository;
 import com.example.WS1.repository.DefektRepository;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,10 +17,18 @@ import java.util.UUID;
 @Service
 public class DefectService {
     DefektRepository defektRepository;
-
-    public DefectService(DefektRepository defektRepository){
+    DefectListRepository defectListRepository;
+    public DefectService(DefektRepository defektRepository, DefectListRepository defectListRepository){
         this.defektRepository = defektRepository;
+        this.defectListRepository = defectListRepository;
     }
+
+    //Get defect list
+    public List<DefectEntity> getDefektList() {
+        List<DefectEntity> defectList = defectListRepository.findAll();
+        return defectList;
+    }
+
     //Get full list
     public List<Defekt> getDefekts() {
         List<Defekt> defekts = defektRepository.findAll();

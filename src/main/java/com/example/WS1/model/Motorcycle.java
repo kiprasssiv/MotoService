@@ -1,9 +1,12 @@
 package com.example.WS1.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -27,6 +30,9 @@ public class Motorcycle {
     @Column(name = "needfixing")
     @JsonProperty("needFixing")
     private boolean needFixing = true;
+
+    @OneToMany(mappedBy = "moto_id", cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<Defekt> defekts = new ArrayList<>();
 
     public Motorcycle(String make, String model, int year){
         this.make = make;
@@ -74,5 +80,15 @@ public class Motorcycle {
     public void setNeedFixing(boolean needFixing) {
         this.needFixing = needFixing;
     }
+
+    public List<Defekt> getDefekts() {
+        return defekts;
+    }
+
+    public void setDefekts(List<Defekt> defekts) {
+        this.defekts = defekts;
+    }
+    
 }
+
 
