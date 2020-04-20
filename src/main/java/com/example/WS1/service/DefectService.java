@@ -3,12 +3,12 @@ package com.example.WS1.service;
 import com.example.WS1.controller.exception.DefektNotFoundException;
 import com.example.WS1.model.DefectEntity;
 import com.example.WS1.model.Defekt;
+import com.example.WS1.model.DefektCaller;
 import com.example.WS1.repository.DefectListRepository;
 import com.example.WS1.repository.DefektRepository;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.List;
@@ -17,15 +17,24 @@ import java.util.UUID;
 @Service
 public class DefectService {
     DefektRepository defektRepository;
-    DefectListRepository defectListRepository;
-    public DefectService(DefektRepository defektRepository, DefectListRepository defectListRepository){
+    DefektCaller defektCaller;
+
+    private RestTemplate restTemplate;
+    private HttpHeaders httpHeaders;
+    private HttpEntity<Object> httpEntity;
+
+    public DefectService(DefektRepository defektRepository, DefektCaller defektCaller){
         this.defektRepository = defektRepository;
-        this.defectListRepository = defectListRepository;
+        this.defektCaller = defektCaller;
+        this.restTemplate = new RestTemplate();
+        this.httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
     }
 
     //Get defect list
     public List<DefectEntity> getDefektList() {
-        List<DefectEntity> defectList = defectListRepository.findAll();
+        List<DefectEntity> defectList;
+        defectList = defektCaller.getDefectList();
         return defectList;
     }
 

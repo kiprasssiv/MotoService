@@ -14,15 +14,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.springframework.http.client.OkHttp3ClientHttpRequestFactory.buildRequest;
 
-@Service
+
+
 public class DefektCaller {
-    private static String url = "/defects";
-    private RestTemplate restTemplate;
-    private HttpHeaders httpHeaders;
-    private HttpEntity<Object> httpEntity;
-
     @Value("${defect-service.url}") // Base url
     private String baseDefectResourceUrl;
 
@@ -31,6 +26,11 @@ public class DefektCaller {
 
     @Value("${defect-service.url.one}")
     private String defectResourceUrlOne;
+
+    private static String url = "/defects";
+    private RestTemplate restTemplate;
+    private HttpHeaders httpHeaders;
+    private HttpEntity<Object> httpEntity;
 
     public DefektCaller(){
         this.restTemplate = new RestTemplate();
