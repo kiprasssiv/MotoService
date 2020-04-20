@@ -17,3 +17,5 @@ spring:
     password: ${sql_password}
   flyway:
     schemas: ${sql_schema}
+defect:
+  url: http://192.168.99.100:5000/defects

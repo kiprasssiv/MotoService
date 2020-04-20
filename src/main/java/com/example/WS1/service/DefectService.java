@@ -4,11 +4,9 @@ import com.example.WS1.controller.exception.DefektNotFoundException;
 import com.example.WS1.model.DefectEntity;
 import com.example.WS1.model.Defekt;
 import com.example.WS1.model.DefektCaller;
-import com.example.WS1.repository.DefectListRepository;
 import com.example.WS1.repository.DefektRepository;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.List;
@@ -19,16 +17,11 @@ public class DefectService {
     DefektRepository defektRepository;
     DefektCaller defektCaller;
 
-    private RestTemplate restTemplate;
-    private HttpHeaders httpHeaders;
-    private HttpEntity<Object> httpEntity;
+
 
     public DefectService(DefektRepository defektRepository, DefektCaller defektCaller){
         this.defektRepository = defektRepository;
         this.defektCaller = defektCaller;
-        this.restTemplate = new RestTemplate();
-        this.httpHeaders = new HttpHeaders();
-        httpHeaders.setContentType(MediaType.APPLICATION_JSON);
     }
 
     //Get defect list

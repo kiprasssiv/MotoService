@@ -1,6 +1,6 @@
 package com.example.WS1.model;
-
 import java.time.Instant;
+
 
 public class DefectEntity {
     public long id;
