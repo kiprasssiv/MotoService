@@ -36,8 +36,8 @@ public class DefectController {
             @ApiResponse(code = 404, message = "Deffect list is empty")
     })
     @GetMapping("/motorcycles/deffects/posibilities")
-    public List<DefectEntity> getDefekts() {
-        return defectService.getDefektsList();
+    public List<DefectEntity> getDefektList() {
+        return defectService.getDefektList();
     }
 
     @ApiResponses(value = {
