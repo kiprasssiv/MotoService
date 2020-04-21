@@ -1,6 +1,7 @@
 package com.example.WS1.configuration;
 
 import com.example.WS1.model.DefektCaller;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,8 +27,8 @@ class DefectTemplateProperties {
 public class DefectTemplateConfig {
     @Bean
     public DefektCaller defektCaller(
-            DefectTemplateProperties props
+            @Value("${defect.url}") String url
     ) {
-        return new DefektCaller(props.getUrl());
+        return new DefektCaller(url);
     }
 }

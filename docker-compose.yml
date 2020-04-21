@@ -21,7 +21,7 @@ services:
       - mynet
 
   moto-service :
-    image: zaliabulve/motoser:latest
+    image: zaliabulve/motoser:1.0.0
     depends_on:
       - postgres
     environment:
