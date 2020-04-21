@@ -112,6 +112,16 @@ public class DefectService {
         return defektCaller.addDefectToList(defectEntity);
     }
 
+    public ResponseEntity<DefectEntity> updateDefectList(Long id,String name,String description, DefectStatus status, DefectPriority priority){
+        DefectServiceRequest request = new DefectServiceRequest();
+        request.setName(name);
+        request.setDescription(description);
+        request.setStatus(status);
+        request.setPriority(priority);
+        return defektCaller.updateDefectOnList(id, request);
+    }
+
+
 
 
 }

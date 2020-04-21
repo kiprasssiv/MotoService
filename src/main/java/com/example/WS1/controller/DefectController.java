@@ -28,51 +28,51 @@ public class DefectController {
     }
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Motorcycle of deffects list"),
+            @ApiResponse(code = 200, message = "Motorcycle of defects list"),
             @ApiResponse(code = 404, message = "Database empty")
     })
     @GetMapping("/motorcycles/defects")
-    public List<Defekt> getDefekts() {
+    public List<Defekt> getDefects() {
         return defectService.getDefekts();
     }
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Deffect list"),
-            @ApiResponse(code = 404, message = "Deffect list is empty")
+            @ApiResponse(code = 200, message = "Defect list"),
+            @ApiResponse(code = 404, message = "Defect list is empty")
     })
     @GetMapping("/motorcycles/defects/tasks")
-    public List<DefectEntity> getDefektList() {
+    public List<DefectEntity> getDefectList() {
         return defectService.getDefektList();
     }
 
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Motorcycle deffect found"),
-            @ApiResponse(code = 404, message = "Motorcycle deffect not found")
+            @ApiResponse(code = 200, message = "Motorcycle defect found"),
+            @ApiResponse(code = 404, message = "Motorcycle defect not found")
     })
     @GetMapping("/motorcycles/defects/{id}")
-    public Defekt getDefekt(@PathVariable("id") String id) throws Exception {
+    public Defekt getDefect(@PathVariable("id") String id) throws Exception {
         return defectService.getDefekt(UUID.fromString(id));
     }
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Motorcycle deffect created"),
+            @ApiResponse(code = 200, message = "Motorcycle defect created"),
             @ApiResponse(code = 400, message = "Bad request body"),
-            @ApiResponse(code = 404, message = "Motorcycle deffect not created")
+            @ApiResponse(code = 404, message = "Motorcycle defect not created")
     })
     @PostMapping("/motorcycles/defects")
-    public ResponseEntity<Defekt> createDefekt(@RequestBody CreateMotoDefektRequest request) {
+    public ResponseEntity<Defekt> createDefect(@RequestBody CreateMotoDefektRequest request) {
         return defectService.createDefekt(request.getMoto_id(),request.getService_id());
     }
 
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Updated motorcycle deffect"),
+            @ApiResponse(code = 200, message = "Updated motorcycle defect"),
             @ApiResponse(code = 400, message = "Bad request body"),
-            @ApiResponse(code = 404, message = "Motorcycle deffect not found")
+            @ApiResponse(code = 404, message = "Motorcycle defect not found")
     })
 
     @PutMapping("/motorcycle/defects/{id}")
-    public Defekt updateDeffectInfo(
+    public Defekt updateDefectInfo(
             @PathVariable("id") String id,
             @RequestBody UpdateMotoDefektRequest request
     ) throws Exception{
@@ -83,12 +83,13 @@ public class DefectController {
         }
     }
 
+    //Commands to work with external web service
     @ApiResponses(value = {
-            @ApiResponse(code = 204,message = "Motorcycle deffect deleted"),
+            @ApiResponse(code = 204,message = "Motorcycle defect deleted"),
             @ApiResponse(code = 404, message = "Not found")
     })
     @DeleteMapping("/motorcycle/defects/{id}")
-    public ResponseEntity<Defekt> deleteMotoDefektInfo(
+    public ResponseEntity<Defekt> deleteMotoDefectInfo(
             @PathVariable("id") String id
     ) throws Exception{
         defectService.deleteDefekt(UUID.fromString(id));
@@ -104,6 +105,24 @@ public class DefectController {
     public ResponseEntity<DefectEntity> createNewDefect(@RequestBody DefectEntity request) {
         return defectService.addDefectToTheList(request.getName(),request.getDescription(),request.getPriority(),request.getStatus());
 
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Updated motorcycle defect"),
+            @ApiResponse(code = 400, message = "Bad request body"),
+            @ApiResponse(code = 404, message = "Motorcycle defect not found")
+    })
+
+    @PutMapping("/motorcycle/defects/tasks/{id}")
+    public ResponseEntity<DefectEntity> updateDefectInfoList(
+            @PathVariable("id") String id,
+            @RequestBody DefectServiceRequest request
+    ) throws Exception{
+        try {
+            return defectService.updateDefectList(Long.parseLong(id),request.getName(),request.getDescription(),request.getStatus(),request.getPriority());
+        }catch(Exception ex){
+            throw ex;
+        }
     }
 
 

@@ -20,7 +20,7 @@ public class DefektCaller {
 
     @Value("${defect-service}")
     private String baseCommentResourceURL;
-
+    private String urlForWorking = "http://192.168.99.100:5000/defects";
     private RestTemplate restTemplate;
     private HttpHeaders httpHeaders;
     private HttpEntity<Object> httpEntity;
@@ -37,7 +37,7 @@ public class DefektCaller {
         ResponseEntity<DefectEntity[]> serverResponse = null;
 
         try {
-            serverResponse = restTemplate.exchange(baseCommentResourceURL, HttpMethod.GET, httpEntity, DefectEntity[].class);
+            serverResponse = restTemplate.exchange(urlForWorking, HttpMethod.GET, httpEntity, DefectEntity[].class);
         }  catch (HttpClientErrorException e) {
             System.out.println("Can not find defect list");
         }
@@ -48,7 +48,7 @@ public class DefektCaller {
     public void removeDefect(Long defectId) {
         this.httpEntity = new HttpEntity<>("body", httpHeaders);
         try {
-            restTemplate.exchange(baseCommentResourceURL + defectId.toString(), HttpMethod.DELETE, httpEntity, DefectEntity.class);
+            restTemplate.exchange(baseCommentResourceURL + "/"+defectId.toString(), HttpMethod.DELETE, httpEntity, DefectEntity.class);
         } catch (HttpClientErrorException e) {
             switch (e.getStatusCode()) {
                 case NOT_FOUND:
@@ -76,6 +76,22 @@ public class DefektCaller {
             }
         }
         System.out.println(defectsResponse);
+        return defectsResponse;
+    }
+
+    public ResponseEntity<DefectEntity> updateDefectOnList(Long id, DefectServiceRequest request){
+        this.httpEntity = new HttpEntity<>(request, httpHeaders);
+        ResponseEntity<DefectEntity> defectsResponse = null;
+        try {
+            defectsResponse = restTemplate.exchange(baseCommentResourceURL + "/" +id.toString(), HttpMethod.PUT, httpEntity, DefectEntity.class);
+        } catch (HttpClientErrorException e) {
+            switch (e.getStatusCode()) {
+                case NOT_FOUND:
+                    throw new DefektNotFoundException();
+                case INTERNAL_SERVER_ERROR:
+                    throw ExternalApiException.create();
+            }
+        }
         return defectsResponse;
     }
 }
