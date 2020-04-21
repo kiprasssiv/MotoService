@@ -1,10 +1,15 @@
 package com.example.WS1.controller;
 
 import com.example.WS1.controller.request.CreateMotoDefektRequest;
+import com.example.WS1.controller.request.CreateMotorcycleRequest;
+import com.example.WS1.controller.request.DefectServiceRequest;
 import com.example.WS1.controller.request.UpdateMotoDefektRequest;
 import com.example.WS1.model.DefectEntity;
 import com.example.WS1.model.Defekt;
+import com.example.WS1.model.Motorcycle;
 import com.example.WS1.service.DefectService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpStatus;
@@ -35,10 +40,11 @@ public class DefectController {
             @ApiResponse(code = 200, message = "Deffect list"),
             @ApiResponse(code = 404, message = "Deffect list is empty")
     })
-    @GetMapping("/motorcycles/deffects/posibilities")
+    @GetMapping("/motorcycles/deffects/tasks")
     public List<DefectEntity> getDefektList() {
         return defectService.getDefektList();
     }
+
 
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Motorcycle deffect found"),
@@ -88,4 +94,18 @@ public class DefectController {
         defectService.deleteDefekt(UUID.fromString(id));
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
+
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Motorcycle defect added"),
+            @ApiResponse(code = 400, message = "Bad request body"),
+            @ApiResponse(code = 404, message = "Motorcycle defect not created")
+    })
+    @PostMapping("/motorcycles/deffects/tasks")
+    public ResponseEntity<DefectEntity> createNewDefect(@RequestBody DefectEntity request) {
+        return defectService.addDefectToTheList(request.getName(),request.getDescription(),request.getPriority(),request.getStatus());
+
+    }
+
+
+
 }
