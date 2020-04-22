@@ -37,7 +37,7 @@ public class DefektCaller {
         ResponseEntity<DefectEntity[]> serverResponse = null;
 
         try {
-            serverResponse = restTemplate.exchange(urlForWorking, HttpMethod.GET, httpEntity, DefectEntity[].class);
+            serverResponse = restTemplate.exchange(baseCommentResourceURL, HttpMethod.GET, httpEntity, DefectEntity[].class);
         }  catch (HttpClientErrorException e) {
             System.out.println("Can not find defect list");
         }
