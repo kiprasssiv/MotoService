@@ -17,7 +17,6 @@ import java.util.List;
 public class DefektCaller {
 
     private URI defectResourceUrlAll;
-    //- DEFECTS_URL=http://192.168.99.100:8090
     @Value("${defect-service}")
     private String baseServiceResourceURL;
     private String urlForWorking = "http://192.168.99.100:8090/defects";
@@ -37,7 +36,7 @@ public class DefektCaller {
         ResponseEntity<DefectEntity[]> serverResponse = null;
 
         try {
-            serverResponse = restTemplate.exchange(urlForWorking, HttpMethod.GET, httpEntity, DefectEntity[].class);
+            serverResponse = restTemplate.exchange(baseServiceResourceURL, HttpMethod.GET, httpEntity, DefectEntity[].class);
         }  catch (HttpClientErrorException e) {
             System.out.println("Can not find defect list");
         }
@@ -48,7 +47,7 @@ public class DefektCaller {
     public void removeDefect(Long defectId) {
         this.httpEntity = new HttpEntity<>("body", httpHeaders);
         try {
-            restTemplate.exchange(urlForWorking + "/"+defectId.toString(), HttpMethod.DELETE, httpEntity, DefectEntity.class);
+            restTemplate.exchange(baseServiceResourceURL + "/"+defectId.toString(), HttpMethod.DELETE, httpEntity, DefectEntity.class);
         } catch (HttpClientErrorException e) {
             switch (e.getStatusCode()) {
                 case NOT_FOUND:
@@ -63,7 +62,7 @@ public class DefektCaller {
         this.httpEntity = new HttpEntity<>(request, httpHeaders);
         ResponseEntity<DefectEntity> defectsResponse;
         try {
-            defectsResponse = restTemplate.exchange(urlForWorking, HttpMethod.POST, httpEntity, DefectEntity.class);
+            defectsResponse = restTemplate.exchange(baseServiceResourceURL, HttpMethod.POST, httpEntity, DefectEntity.class);
 
         } catch (HttpClientErrorException e) {
             switch (e.getStatusCode()) {
@@ -83,7 +82,7 @@ public class DefektCaller {
         this.httpEntity = new HttpEntity<>(request, httpHeaders);
         ResponseEntity<DefectEntity> defectsResponse = null;
         try {
-            defectsResponse = restTemplate.exchange(urlForWorking + "/" +id.toString(), HttpMethod.PUT, httpEntity, DefectEntity.class);
+            defectsResponse = restTemplate.exchange(baseServiceResourceURL + "/" +id.toString(), HttpMethod.PUT, httpEntity, DefectEntity.class);
         } catch (HttpClientErrorException e) {
             switch (e.getStatusCode()) {
                 case NOT_FOUND:

@@ -21,7 +21,7 @@ services:
       - mynet
 
   moto-service :
-    image: zaliabulve/motoser:1.0.5
+    image: zaliabulve/motoser:1.0.8
     depends_on:
       - postgres
     environment:
@@ -30,7 +30,6 @@ services:
       - SPRING_FLYWAY_SCHEMAS=garage
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
-
     command: java -jar ./app/moto-service.jar
     ports:
       - 80:80
@@ -41,6 +40,8 @@ services:
     image: mila973/defect-registry:latest
     ports:
       - 8090:8090
+    networks:
+      - mynet
 
 networks:
   mynet:
