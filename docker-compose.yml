@@ -30,7 +30,6 @@ services:
       - SPRING_FLYWAY_SCHEMAS=garage
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
-      - DEFECTS_URL=http://192.168.99.100:8090
     command: java -jar ./app/moto-service.jar
     ports:
       - 80:80
