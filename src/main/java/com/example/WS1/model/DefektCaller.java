@@ -16,19 +16,20 @@ import java.util.List;
 
 public class DefektCaller {
 
-    private URI defectResourceUrlAll;
-    @Value("${defect-service}")
-    private String baseServiceResourceURL;
-    private String urlForWorking = "http://192.168.99.100:8090/defects";
+    //private URI defectResourceUrlAll;
+   // @Value("${defect-service}")
+   // private String baseServiceResourceURL;
+    private String baseServiceResourceURL = "http://192.168.99.100:8090/defects";
+
     private RestTemplate restTemplate;
     private HttpHeaders httpHeaders;
     private HttpEntity<Object> httpEntity;
 
-    public DefektCaller(String url) {
-        this.defectResourceUrlAll = URI.create(url);
+    public DefektCaller() {
         this.restTemplate = new RestTemplate();
         this.httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
+
     }
 
     public List<DefectEntity> getDefectList(){

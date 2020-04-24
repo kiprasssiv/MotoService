@@ -13,14 +13,9 @@ import java.util.UUID;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Defekt {
-    @Id
-    @GeneratedValue
-    @Column(name = "id")
-    @JsonProperty("id")
-    private UUID id = UUID.randomUUID();
 
-    @JsonIgnore
     @Column(name = "moto_id")
+    @JsonProperty("moto_id")
     public UUID moto_id;
 
     @Column(name = "service_id")
@@ -28,20 +23,11 @@ public class Defekt {
     public int service_id;
 
     public Defekt(UUID moto_id, int service_id){
-
         this.moto_id = moto_id;
         this.service_id = service_id;
     }
 
     public Defekt() {}
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public UUID getMoto_id() {
         return moto_id;

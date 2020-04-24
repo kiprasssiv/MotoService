@@ -1,8 +1,12 @@
 package com.example.WS1.controller;
 
 import com.example.WS1.controller.request.CreateMotorcycleRequest;
+import com.example.WS1.controller.request.DefectServiceRequest;
 import com.example.WS1.controller.request.UpdateMotorcycleRequest;
 import com.example.WS1.model.Motorcycle;
+import com.example.WS1.model.enums.DefectPriority;
+import com.example.WS1.model.enums.DefectStatus;
+import com.example.WS1.service.DefectService;
 import com.example.WS1.service.GarageService;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -17,9 +21,10 @@ import java.util.UUID;
 public class GarageController {
 
     private GarageService garageService;
-
-    public GarageController(GarageService garageService) {
+    private DefectService defectService;
+    public GarageController(GarageService garageService, DefectService defectService) {
         this.garageService = garageService;
+        this.defectService = defectService;
     }
 
 
@@ -49,7 +54,12 @@ public class GarageController {
             @ApiResponse(code = 404, message = "Motorcycle not created")
     })
     @PostMapping("/motorcycles")
-    public ResponseEntity<Motorcycle> createMotorcycle(@RequestBody CreateMotorcycleRequest request) {
+    public ResponseEntity<Motorcycle> createMotorcycle(@RequestBody CreateMotorcycleRequest request)//, @RequestBody DefectServiceRequest request2) {
+    {
+    /*if(request2.getName()!=null) {
+            defectService.addDefectToTheList(request2.getName(), request2.getDescription(), request2.getPriority(), request2.getStatus());
+        }*/
+
         return garageService.createMotorcycle(request.getMake(),request.getModel(),request.getYear());
 
     }

@@ -29,6 +29,6 @@ public class DefectTemplateConfig {
     public DefektCaller defektCaller(
             @Value("${defect.url}") String url
     ) {
-        return new DefektCaller(url);
+        return new DefektCaller();
     }
 }
