@@ -1,20 +1,18 @@
 package com.example.WS1.model;
 
 
-import com.example.WS1.controller.exception.DefektNotFoundException;
+import com.example.WS1.controller.exception.DefectNotFoundException;
 import com.example.WS1.controller.exception.ExternalApiException;
 import com.example.WS1.controller.request.DefectServiceRequest;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
 
-public class DefektCaller {
+public class DefectCaller {
 
     //private URI defectResourceUrlAll;
    // @Value("${defect-service}")
@@ -25,7 +23,7 @@ public class DefektCaller {
     private HttpHeaders httpHeaders;
     private HttpEntity<Object> httpEntity;
 
-    public DefektCaller() {
+    public DefectCaller() {
         this.restTemplate = new RestTemplate();
         this.httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -52,7 +50,7 @@ public class DefektCaller {
         } catch (HttpClientErrorException e) {
             switch (e.getStatusCode()) {
                 case NOT_FOUND:
-                    throw new DefektNotFoundException();
+                    throw new DefectNotFoundException();
                 case INTERNAL_SERVER_ERROR:
                     throw ExternalApiException.create();
             }
@@ -68,7 +66,7 @@ public class DefektCaller {
         } catch (HttpClientErrorException e) {
             switch (e.getStatusCode()) {
                 case NOT_FOUND:
-                    throw new DefektNotFoundException();
+                    throw new DefectNotFoundException();
                 case INTERNAL_SERVER_ERROR:
                     throw ExternalApiException.create();
                 default:
@@ -87,7 +85,7 @@ public class DefektCaller {
         } catch (HttpClientErrorException e) {
             switch (e.getStatusCode()) {
                 case NOT_FOUND:
-                    throw new DefektNotFoundException();
+                    throw new DefectNotFoundException();
                 case INTERNAL_SERVER_ERROR:
                     throw ExternalApiException.create();
             }

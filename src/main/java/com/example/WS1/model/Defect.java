@@ -12,7 +12,7 @@ import java.util.UUID;
 @Table(name = "defects")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Defekt {
+public class Defect {
 
     @Column(name = "moto_id")
     @JsonProperty("moto_id")
@@ -22,12 +22,12 @@ public class Defekt {
     @JsonProperty("service_id")
     public int service_id;
 
-    public Defekt(UUID moto_id, int service_id){
+    public Defect(UUID moto_id, int service_id){
         this.moto_id = moto_id;
         this.service_id = service_id;
     }
 
-    public Defekt() {}
+    public Defect() {}
 
     public UUID getMoto_id() {
         return moto_id;

@@ -2,7 +2,7 @@ package com.example.WS1.controller.request;
 
 import java.util.UUID;
 
-public class DefektRequest {
+public class DefectRequest {
     private UUID moto_id;
     private int service_id;
 

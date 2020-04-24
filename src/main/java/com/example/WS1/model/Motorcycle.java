@@ -1,6 +1,5 @@
 package com.example.WS1.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -32,7 +31,7 @@ public class Motorcycle {
     private boolean needFixing = true;
 
     @OneToMany(mappedBy = "moto_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<Defekt> defekts = new ArrayList<>();
+    public List<Defect> defects = new ArrayList<>();
 
     public Motorcycle(String make, String model, int year){
         this.make = make;
@@ -81,12 +80,12 @@ public class Motorcycle {
         this.needFixing = needFixing;
     }
 
-    public List<Defekt> getDefekts() {
-        return defekts;
+    public List<Defect> getDefekts() {
+        return defects;
     }
 
-    public void setDefekts(List<Defekt> defekts) {
-        this.defekts = defekts;
+    public void setDefekts(List<Defect> defekts) {
+        this.defects = defekts;
     }
     
 }

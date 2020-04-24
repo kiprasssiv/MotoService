@@ -1,60 +1,59 @@
 package com.example.WS1.service;
 
-import com.example.WS1.controller.exception.DefektNotFoundException;
 import com.example.WS1.controller.request.DefectServiceRequest;
 import com.example.WS1.model.DefectEntity;
-import com.example.WS1.model.Defekt;
-import com.example.WS1.model.DefektCaller;
+import com.example.WS1.model.Defect;
+import com.example.WS1.model.DefectCaller;
 import com.example.WS1.model.enums.DefectPriority;
 import com.example.WS1.model.enums.DefectStatus;
-import com.example.WS1.repository.DefektRepository;
+import com.example.WS1.repository.DefectRepository;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
-import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class DefectService {
-    DefektRepository defektRepository;
-    DefektCaller defektCaller;
+    DefectRepository defectRepository;
+    DefectCaller defectCaller;
 
 
 
-    public DefectService(DefektRepository defektRepository, DefektCaller defektCaller){
-        this.defektRepository = defektRepository;
-        this.defektCaller = defektCaller;
+    public DefectService(DefectRepository defectRepository, DefectCaller defectCaller){
+        this.defectRepository = defectRepository;
+        this.defectCaller = defectCaller;
     }
 
     //Get defect list
-    public List<DefectEntity> getDefektList() {
+    public List<DefectEntity> getDefectList() {
         List<DefectEntity> defectList;
-        defectList = defektCaller.getDefectList();
+        defectList = defectCaller.getDefectList();
         return defectList;
     }
 
     //Get full list
-    public List<Defekt> getDefekts() {
-        List<Defekt> defekts = defektRepository.findAll();
-        return defekts;
+    public List<Defect> getDefects() {
+        List<Defect> defects = defectRepository.findAll();
+        return defects;
     }
-
+    /*
     //Get one deffect by id
-    public Defekt getDefekt(UUID id) throws Exception {
+    public Defect getDefect(UUID id) throws Exception {
         try {
-            return defektRepository.getDefektById(id)
-                    .orElseThrow(() -> new Exception("Failed to find defekt by id"));
+            return defectRepository.getDefectById(id)
+                    .orElseThrow(() -> new Exception("Failed to find defect by id"));
         } catch (Exception ex) {
             throw ex;
         }
     }
-
+    */
+    /*
     //Add a motorcycle deffect
-    public ResponseEntity<Defekt> createDefekt(UUID moto_id, int def_id){
+    public ResponseEntity<Defect> createDefect(UUID moto_id, int def_id){
         boolean exists = false;
         List<DefectEntity> defectList;
-        defectList = defektCaller.getDefectList();
+        defectList = defectCaller.getDefectList();
         for(int i=0;i<defectList.size();i++){
             if((int)(defectList.get(i).getId()) == def_id){
                 exists = true;
@@ -62,46 +61,47 @@ public class DefectService {
             }
         }
         if(exists){
-            Defekt deffect = new Defekt(moto_id,def_id);
-            Defekt deff = defektRepository.save(deffect);
+            Defect defect = new Defect(moto_id,def_id);
+            Defect def = defectRepository.save(defect);
             HttpHeaders responseHeaders = new HttpHeaders();
-            responseHeaders.set("location","/motorcycles/deffects/" + deff.getId());
+            responseHeaders.set("location","/motorcycles/defects/" + def.getId());
             try{
-                return ResponseEntity.created(new URI("/motorcycles/deffects/"+deff.getId())).header(String.valueOf(responseHeaders)).body(deffect);
+                return ResponseEntity.created(new URI("/motorcycles/defects/"+def.getId())).header(String.valueOf(responseHeaders)).body(defect);
             }catch(Exception e){
                 throw new RuntimeException("Failed creating");
             }
         }
         else{
-            throw new DefektNotFoundException();
+            throw new DefectNotFoundException();
         }
     }
+    */
+    /*
+    ///TO DO
+    //Update defect
+    public Defect updateDefect(UUID moto_id, int def_id)throws Exception{
+
+        Defect defect = getDefect();
+        defect.setMoto_id(moto_id);
+        defect.setService_id(def_id);
+        return defectRepository.save(defect);
 
 
-
-    //Update defekt
-    public Defekt updateDefekt(UUID id, UUID moto_id, int def_id)throws Exception{
-        if(!defektRepository.existsById(id)){
-            throw new DefektNotFoundException();
-        }
-        Defekt deffect = getDefekt(id);
-        deffect.setId(id);
-        deffect.setMoto_id(moto_id);
-        deffect.setService_id(def_id);
-        return defektRepository.save(deffect);
     }
 
+    */
+    /*
     //Delete a finished to fix deffect
     public ResponseEntity<Defekt> deleteDefekt(UUID id) throws Exception {
-        if(!defektRepository.existsById(id)){
-            throw new DefektNotFoundException();
+        if(!defectRepository.existsById(id)){
+            throw new DefectNotFoundException();
         }
-        Defekt deff = getDefekt(id);
-        defektCaller.removeDefect((long)deff.service_id);
-        defektRepository.delete(deff);
+        Defekt def = getDefect(id);
+        defectCaller.removeDefect((long)def.service_id);
+        defectRepository.delete(def);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
+    */
     //Add a new defect to the list
     public ResponseEntity<DefectEntity> addDefectToTheList(String name, String description, DefectPriority priority, DefectStatus status){
         DefectServiceRequest defectEntity = new DefectServiceRequest();
@@ -109,7 +109,7 @@ public class DefectService {
         defectEntity.setDescription(description);
         defectEntity.setPriority(priority);
         defectEntity.setStatus(status);
-        return defektCaller.addDefectToList(defectEntity);
+        return defectCaller.addDefectToList(defectEntity);
     }
 
     public ResponseEntity<DefectEntity> updateDefectList(Long id,String name,String description, DefectStatus status, DefectPriority priority){
@@ -118,7 +118,7 @@ public class DefectService {
         request.setDescription(description);
         request.setStatus(status);
         request.setPriority(priority);
-        return defektCaller.updateDefectOnList(id, request);
+        return defectCaller.updateDefectOnList(id, request);
     }
 
 
