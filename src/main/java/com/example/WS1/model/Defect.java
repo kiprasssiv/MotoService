@@ -1,7 +1,6 @@
 package com.example.WS1.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,6 +12,11 @@ import java.util.UUID;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Defect {
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
+    @JsonProperty("id")
+    private UUID id = UUID.randomUUID();
 
     @Column(name = "moto_id")
     @JsonProperty("moto_id")
@@ -28,6 +32,14 @@ public class Defect {
     }
 
     public Defect() {}
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public UUID getMoto_id() {
         return moto_id;

@@ -1,15 +1,19 @@
 package com.example.WS1.service;
 
+import com.example.WS1.controller.exception.DefectNotFoundException;
+import com.example.WS1.controller.exception.MotorcycleNotFoundException;
 import com.example.WS1.controller.request.DefectServiceRequest;
 import com.example.WS1.model.DefectEntity;
 import com.example.WS1.model.Defect;
 import com.example.WS1.model.DefectCaller;
+import com.example.WS1.model.Motorcycle;
 import com.example.WS1.model.enums.DefectPriority;
 import com.example.WS1.model.enums.DefectStatus;
 import com.example.WS1.repository.DefectRepository;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,8 +41,7 @@ public class DefectService {
         List<Defect> defects = defectRepository.findAll();
         return defects;
     }
-    /*
-    //Get one deffect by id
+
     public Defect getDefect(UUID id) throws Exception {
         try {
             return defectRepository.getDefectById(id)
@@ -47,8 +50,7 @@ public class DefectService {
             throw ex;
         }
     }
-    */
-    /*
+
     //Add a motorcycle deffect
     public ResponseEntity<Defect> createDefect(UUID moto_id, int def_id){
         boolean exists = false;
@@ -75,33 +77,26 @@ public class DefectService {
             throw new DefectNotFoundException();
         }
     }
-    */
-    /*
-    ///TO DO
-    //Update defect
-    public Defect updateDefect(UUID moto_id, int def_id)throws Exception{
 
-        Defect defect = getDefect();
+    //Update defect
+    public Defect updateDefect(UUID id, UUID moto_id, int def_id)throws Exception{
+
+        Defect defect = getDefect(id);
         defect.setMoto_id(moto_id);
         defect.setService_id(def_id);
         return defectRepository.save(defect);
-
-
     }
 
-    */
-    /*
     //Delete a finished to fix deffect
-    public ResponseEntity<Defekt> deleteDefekt(UUID id) throws Exception {
-        if(!defectRepository.existsById(id)){
+    public ResponseEntity<Defect> deleteDefect(UUID id) throws Exception {
+        if(defectRepository.existsById(id)){
             throw new DefectNotFoundException();
         }
-        Defekt def = getDefect(id);
-        defectCaller.removeDefect((long)def.service_id);
+        Defect def = getDefect(id);
         defectRepository.delete(def);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-    */
+
     //Add a new defect to the list
     public ResponseEntity<DefectEntity> addDefectToTheList(String name, String description, DefectPriority priority, DefectStatus status){
         DefectServiceRequest defectEntity = new DefectServiceRequest();

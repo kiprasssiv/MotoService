@@ -80,12 +80,12 @@ public class Motorcycle {
         this.needFixing = needFixing;
     }
 
-    public List<Defect> getDefekts() {
+    public List<Defect> getDefects() {
         return defects;
     }
 
-    public void setDefekts(List<Defect> defekts) {
-        this.defects = defekts;
+    public void setDefects(List<Defect> defects) {
+        this.defects = defects;
     }
     
 }

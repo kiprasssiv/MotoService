@@ -8,6 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface DefectRepository extends JpaRepository<Defect, UUID> {
-    public abstract Optional<Defect> getDefektById(UUID id);
+    public abstract Optional<Defect> getDefectById(UUID id);
     public abstract List<Defect> findAll();
 }

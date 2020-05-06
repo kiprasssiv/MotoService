@@ -36,12 +36,11 @@ public class GarageService {
     }
 
     public ResponseEntity<Motorcycle> createMotorcycle(String make, String model, int year){
-        Motorcycle motorcycle = new Motorcycle(make, model,year);
-        Motorcycle moto = motorcycleRepository.save(motorcycle);
+        Motorcycle moto = motorcycleRepository.save(new Motorcycle(make, model,year));
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("location","/motorcycles/" + moto.getId());
         try{
-            return ResponseEntity.created(new URI("/motorcycles/"+moto.getId())).header(String.valueOf(responseHeaders)).body(motorcycle);
+            return ResponseEntity.created(new URI("/motorcycles/"+moto.getId())).header(String.valueOf(responseHeaders)).body(moto);
         }catch(Exception e){
             throw new RuntimeException("Failed creating");
         }
