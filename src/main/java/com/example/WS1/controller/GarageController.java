@@ -57,15 +57,17 @@ public class GarageController {
             @ApiResponse(code = 404, message = "Motorcycle not created")
     })
     @PostMapping("/motorcycles")
-    public ResponseEntity<Motorcycle> createMotorcycle(@RequestBody CreateMotorcycleRequest request)//, @RequestBody DefectServiceRequest request2) {
+    public ResponseEntity<Motorcycle> createMotorcycle(@RequestBody CreateMotorcycleRequest request)
     {
         ResponseEntity<Motorcycle> response = garageService.createMotorcycle(request.getMotoMake(),request.getMotoModel(),request.getMotoYear());
         UUID moto_id;
         moto_id = response.getBody().getId();
-        if(request.getServiceId() != 0){
+        System.err.println(request.getServiceId());
+        if(request.getServiceId() > 0){
             defectService.createDefect(moto_id,request.getServiceId());
         }
-        if(request.getServiceName() != "string"){
+        System.err.println(request.getServiceName());
+        if(!request.getServiceName().equals("string")){
             ResponseEntity<DefectEntity> defectsResponse;
             defectsResponse = defectService.addDefectToTheList(request.getServiceName(),request.getServiceDescription(),request.getServicePriority(),request.getServiceStatus());
             defectService.createDefect(moto_id,(int)(defectsResponse.getBody().getId()));
